@@ -8,7 +8,21 @@ services available to an instance on EC2.
 The instance must have an IAM instance profile granting access to the
 required AWS API calls.
 
-TODO document required policy
+A suitable PolicyDocument might look like this:
+
+    "PolicyDocument" : {
+        "Statement" : [{
+            "Effect"   :"Allow",
+            "Action"   : [
+                "autoscaling:Describe*",
+                "cloudformation:Describe*",
+                "cloudformation:ListStackResources*",
+                "elasticache:Describe*",
+                "ec2:Describe*"
+            ],
+            "Resource" : "*"
+        }]
+    }
 
 # Usage
 
