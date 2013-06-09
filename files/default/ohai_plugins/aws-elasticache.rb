@@ -10,6 +10,7 @@ aws[:elasticache][:clusters] = Mash.new unless res[:clusters]
 cache_clusters = ec_client.describe_cache_clusters(:show_cache_node_info => true)[:cache_clusters]
 cache_clusters.each do |cc|
   cluster_data = {
+    :id     => cc[:cache_cluster_id],
     :status => cc[:cache_cluster_status],
     :engine => {
       :type    => cc[:engine],
