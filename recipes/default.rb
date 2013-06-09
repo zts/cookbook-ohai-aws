@@ -16,3 +16,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+include_recipe "xml::ruby"
+chef_gem "aws-sdk"
+
+include_recipe 'ohai'
