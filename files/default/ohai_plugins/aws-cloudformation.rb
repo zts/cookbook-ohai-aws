@@ -1,5 +1,6 @@
 provides "aws/cloudformation"
 require_plugin "aws"
+require_plugin "ec2"
 
 aws[:cloudformation] = Mash.new unless aws[:cloudformation]
 
@@ -18,6 +19,7 @@ aws[:cloudformation][:resources] ||= Mash.new
 stack.resource_summaries.each do |rs|
   resource = {
     :type          => rs[:resource_type],
+    :logical_id    => rs[:logical_resource_id],
     :physical_id   => rs[:physical_resource_id],
     :status        => rs[:resource_status],
     :status_reason => rs[:resource_status_reason],
