@@ -15,6 +15,7 @@ cfn_conn = AWS::CloudFormation.new
 stack_name = tags["aws:cloudformation:stack-name"]
 stack = cfn_conn.stacks[stack_name]
 
+aws[:cloudformation][:parameters] = stack.parameters
 aws[:cloudformation][:resources] ||= Mash.new
 stack.resource_summaries.each do |rs|
   resource = {
