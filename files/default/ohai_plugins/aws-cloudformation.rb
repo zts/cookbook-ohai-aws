@@ -5,7 +5,8 @@ require_plugin "ec2"
 aws[:cloudformation] = Mash.new unless aws[:cloudformation]
 
 # Get the name and logical id of the stack this instance is part of
-tags = AWS::EC2.new.instances[ec2[:instance_id]].tags
+ec2_conn = AWS::EC2.new
+tags = ec2_conn.instances[ec2[:instance_id]].tags
 stack_name = aws[:cloudformation][:stack_name] = tags["aws:cloudformation:stack-name"]
 aws[:cloudformation][:logical_id] = tags["aws:cloudformation:logical-id"]
 
@@ -30,6 +31,19 @@ stack = cfn_conn.stacks.each do |stack|
     }
     id = rs[:logical_resource_id]
     aws[:cloudformation][:stacks][stack.name][:resources][id] = resource
+  end
+
+  aws[:cloudformation][:stacks][stack.name][:instances] = []
+  running_instances = ec2_conn.instances
+    .tagged("elastera:stackname")
+    .tagged_values(stack.name)
+    .filter("instance-state-name", "running")
+  running_instances.each do |instance|
+    aws[:cloudformation][:stacks][stack.name][:instances] << {
+      :instance_id => instance.id,
+      :type => instance.instance_type,
+      :private_ip_address => instance.private_ip_address,
+    }
   end
 end
 
