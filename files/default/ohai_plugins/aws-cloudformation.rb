@@ -29,3 +29,23 @@ stack.resource_summaries.each do |rs|
   id = rs[:logical_resource_id]
   aws[:cloudformation][:resources][id] = resource
 end
+
+aws[:cloudformation][:stacks] ||= Mash.new
+stack = cfn_conn.stacks.each do |stack|
+  aws[:cloudformation][:stacks][stack.name] ||= Mash.new
+  aws[:cloudformation][:stacks][stack.name][:parameters] = stack.parameters
+  aws[:cloudformation][:stacks][stack.name][:resources] ||= Mash.new
+
+  stack.resource_summaries.each do |rs|
+    resource = {
+      :type          => rs[:resource_type],
+      :logical_id    => rs[:logical_resource_id],
+      :physical_id   => rs[:physical_resource_id],
+      :status        => rs[:resource_status],
+      :status_reason => rs[:resource_status_reason],
+      :last_updated  => rs[:last_updated_timestamp],
+    }
+    id = rs[:logical_resource_id]
+    aws[:cloudformation][:stacks][stack.name][:resources][id] = resource
+  end
+end
