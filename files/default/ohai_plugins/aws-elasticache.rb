@@ -16,13 +16,16 @@ cache_clusters.each do |cc|
       :type    => cc[:engine],
       :version => cc[:engine_version],
     },
-    :configuration => {
-      :host => cc[:configuration_endpoint][:address],
-      :port => cc[:configuration_endpoint][:port],
-    },
     :node_type => cc[:cache_node_type],
     :nodes     => [],
   }
+
+  if cc[:engine] == 'memcached'
+    cluster_data[:configuration] = {
+      :host => cc[:configuration_endpoint][:address],
+      :port => cc[:configuration_endpoint][:port],
+    }
+  end
 
   cc[:cache_nodes].each do |cn|
     cluster_data[:nodes] << {
