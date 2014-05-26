@@ -3,6 +3,13 @@
 Provides ohai plugins to expose additional information about AWS
 services available to an instance on EC2.
 
+I'm using this, but I no longer think it is a good idea.  Among other
+things, it is slow to run, and you may find your use of the AWS API
+rate limited (in which case, these plugins may silently fail).
+
+I'm more likely to ditch this whole idea than fix it, but patches
+welcome.
+
 # Requirements
 
 The instance must have an IAM instance profile granting access to the
@@ -26,7 +33,7 @@ A suitable PolicyDocument might look like this:
 
 # Usage
 
-Add `recipe[ohai-ec2]` to the node's run_list.
+Add `recipe[ohai-aws]` to the node's run_list.
 
 # Attributes
 
