@@ -1,7 +1,9 @@
-## 0.3.1
+## 0.4.0
 
  * Restore details for the stack which started this instance.  These
    are used, and were mistakenly removed.
+ * Don't use the ohai cookbook to install the plugins, as this forces
+   an additional reload of ohai each run.
 
 ## 0.3.0
 
