@@ -17,6 +17,13 @@ stack = cfn_conn.stacks[stack_name]
 aws[:cloudformation][:stacks] ||= Mash.new
 stack = cfn_conn.stacks.each do |stack|
   aws[:cloudformation][:stacks][stack.name] ||= Mash.new
+
+  # Only get details for stacks with 0 or 1 dash in the name. This
+  # will include names like "voga-stage", but not any child stacks
+  # created by CloudFormation.
+  # TODO: permit stacks like "elastera-dev-s3cf"
+  next if stack.name.split('-').length > 2
+
   aws[:cloudformation][:stacks][stack.name][:parameters] = stack.parameters
   aws[:cloudformation][:stacks][stack.name][:resources] ||= Mash.new
 
