@@ -1,3 +1,8 @@
+## 0.3.1
+
+ * Restore details for the stack which started this instance.  These
+   are used, and were mistakenly removed.
+
 ## 0.3.0
 
  * Only show details for top-level CloudFormation stacks.  Chef runs

@@ -20,9 +20,11 @@ stack = cfn_conn.stacks.each do |stack|
 
   # Only get details for stacks with 0 or 1 dash in the name. This
   # will include names like "voga-stage", but not any child stacks
-  # created by CloudFormation.
+  # created by CloudFormation.  Also includes details for the stack
+  # which started this instance.
+  #
   # TODO: permit stacks like "elastera-dev-s3cf"
-  next if stack.name.split('-').length > 2
+  next unless (stack.name == stack_name or stack.name.split('-').length <= 2)
 
   aws[:cloudformation][:stacks][stack.name][:parameters] = stack.parameters
   aws[:cloudformation][:stacks][stack.name][:resources] ||= Mash.new
