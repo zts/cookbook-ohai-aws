@@ -21,7 +21,7 @@ include_recipe "xml::ruby"
 chef_gem "aws-sdk"
 
 # Do this by hand to avoid reloading ohai.
-remote_directory node['ohai']['plugin_path'] do
+remote_directory "/etc/chef/ohai_plugins" do
   source 'ohai_plugins'
   mode '0755'
   recursive true

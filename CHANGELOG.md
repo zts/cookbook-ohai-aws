@@ -1,3 +1,8 @@
+## 0.4.1
+
+ * Specify ohai plugin path (we can't use the attribute from the ohai
+   cookbook, as we no longer depend on it).
+
 ## 0.4.0
 
  * Restore details for the stack which started this instance.  These
