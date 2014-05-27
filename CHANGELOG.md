@@ -1,3 +1,7 @@
+## 0.4.2
+
+ * Increase the number of AWS API retries from 3 to 10.
+
 ## 0.4.1
 
  * Specify ohai plugin path (we can't use the attribute from the ohai
