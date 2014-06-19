@@ -1,3 +1,8 @@
+## 0.4.3
+
+ * Include instance name in the list of instances returned for
+   cloudformation stacks.
+
 ## 0.4.2
 
  * Increase the number of AWS API retries from 3 to 10.

@@ -52,6 +52,7 @@ stack = cfn_conn.stacks.each do |stack|
       :instance_id => instance.id,
       :type => instance.instance_type,
       :private_ip_address => instance.private_ip_address,
+      :name => instance.tags[:Name],
     }
   end
 end
